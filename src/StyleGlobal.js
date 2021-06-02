@@ -7,14 +7,21 @@ const StyleGlobal = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-
-
     }
 
     html {
-        margin: 0;
-        padding: 0;
         overflow-x: hidden;
+        &::-webkit-scrollbar {
+    width: 0.75rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ff7976;
+    border: 3px solid white;
+    border-radius: 1em;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
     }
 
     body {

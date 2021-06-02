@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import { useLocation } from "react-router-dom"
 
 //Redux
 import { useDispatch, useSelector } from "react-redux"
@@ -10,9 +11,14 @@ import { loadGames } from "../actions/gamesAction"
 import Game from "../Components/Game"
 import Hero from "../Components/Hero"
 import heroBg from "../img/header-bg.png"
-import { newGamesURL } from "../api"
+
+import GameDetail from "../Components/GameDetail"
 
 const Home = () => {
+  //Current location
+  const location = useLocation()
+  const pathId = location.pathname.split("/")[2]
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadGames())
@@ -22,6 +28,8 @@ const Home = () => {
   return (
     <GameList>
       <Hero src={heroBg} />
+
+      {pathId && <GameDetail />}
 
       <h2>Upcoming Games</h2>
       <Games>
@@ -77,7 +85,7 @@ const GameList = styled(motion.div)`
 `
 
 const Games = styled(motion.div)`
-  padding: 1em;
+  padding: 1em 2em;
   display: grid;
   gap: 2em;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));

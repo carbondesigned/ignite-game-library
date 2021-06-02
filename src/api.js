@@ -36,7 +36,16 @@ const new_games = `games?key=f00266ed948c4ee8a132c8b6873d1078&dates=${lastYear},
 
 // Final URL
 export const popularGamesURL = () => `${base_url}${popular_games}`
-
 export const upcomingGamesURL = () => `${base_url}${upcoming_games}`
-
 export const newGamesURL = () => `${base_url}${new_games}`
+
+// Game Details
+
+export const gameDetailsURL = (game_id) =>
+  `${base_url}games/${game_id}?key=f00266ed948c4ee8a132c8b6873d1078`
+
+//https://api.rawg.io/api/games/604006?key=f00266ed948c4ee8a132c8b6873d1078
+
+//Screenshot
+export const gameScreenshotURL = (game_id) =>
+  `${base_url}games/${game_id}/screenshots?key=f00266ed948c4ee8a132c8b6873d1078`

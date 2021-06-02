@@ -13,7 +13,7 @@ const SearchGame = () => {
 
 const StyledInput = styled(motion.div)`
   display: flex;
-  width: 20vw;
+  min-width: 30vw;
   padding-top: 2em;
 `
 
