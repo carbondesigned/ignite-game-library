@@ -10,15 +10,18 @@ const StyleGlobal = createGlobalStyle`
     }
 
     html {
-        overflow-x: hidden;
-        &::-webkit-scrollbar {
+        /* overflow-x: hidden; */
+  
+  &::-webkit-scrollbar {
     width: 0.75rem;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: #ff7976;
     border: 3px solid white;
     border-radius: 1em;
   }
+
   &::-webkit-scrollbar-track {
     background-color: white;
   }

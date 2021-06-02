@@ -1,21 +1,43 @@
 import React from "react"
 import styled from "styled-components"
 import { motion } from "framer-motion"
+import { FaTimes, FaTimesCircle } from "react-icons/fa"
+
+import { useHistory } from "react-router-dom"
 
 //Redux
 import { useSelector } from "react-redux"
 
 const GameDetail = () => {
+  const history = useHistory()
   const { screen, game, isLoading } = useSelector((state) => state.detail)
+
+  // Exit Detail
+  const exitDetailHandler = (e) => {
+    const element = e.target
+    if (
+      element.classList.contains("overlay") ||
+      element.classList.contains("close")
+    ) {
+      document.body.style.overlay = "auto"
+      history.push("/")
+    }
+  }
 
   return (
     <>
       {!isLoading && (
-        <CardShadow>
+        <CardShadow className="overlay" onClick={exitDetailHandler}>
           <Detail className="detail">
             <div className="stats">
               <div className="rating">
-                <h2> {game.name} </h2>
+                <div className="top">
+                  <h2> {game.name} </h2>
+                  <StyledFaTimes
+                    className="close"
+                    onClick={exitDetailHandler}
+                  />
+                </div>
                 <p>Rating: {game.rating} </p>
               </div>
               <div className="info">
@@ -47,6 +69,16 @@ const GameDetail = () => {
   )
 }
 
+const StyledFaTimes = styled(FaTimesCircle)`
+  cursor: pointer;
+  transition: 100ms;
+
+  &:hover {
+    color: #9c0000;
+    transform: scale(1.1);
+  }
+`
+
 const CardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
@@ -55,7 +87,7 @@ const CardShadow = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 15;
 
   &::-webkit-scrollbar {
     width: 0.75rem;
@@ -78,9 +110,23 @@ const Detail = styled(motion.div)`
   position: absolute;
   color: black;
 
-  h2 {
-    padding: 0;
-    margin: 0;
+  .top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2em;
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
   }
 
   img {
