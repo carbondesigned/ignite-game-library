@@ -68,7 +68,7 @@ const StyledCoverImg = styled(motion.img)`
 `
 
 const StyledGameInfo = styled(motion.div)`
-  padding: 1em 2em 5em;
+  padding: 1em 2em 10em;
   display: flex;
   flex-direction: column;
   width: 100%;
