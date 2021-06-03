@@ -10,7 +10,8 @@ const StyleGlobal = createGlobalStyle`
     }
 
     html {
-        /* overflow-x: hidden; */
+        overflow-x: hidden;
+        overflow-y: scroll;
   
   &::-webkit-scrollbar {
     width: 0.75rem;

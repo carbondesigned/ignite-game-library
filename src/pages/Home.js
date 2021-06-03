@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import styled from "styled-components"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { useLocation } from "react-router-dom"
 
 //Redux
@@ -28,51 +28,54 @@ const Home = () => {
   return (
     <GameList>
       <Hero src={heroBg} />
+      <AnimateSharedLayout type="crossfade">
+        <AnimatePresence>
+          {pathId && <GameDetail pathId={pathId} />}
+        </AnimatePresence>
 
-      {pathId && <GameDetail />}
-
-      <h2>Upcoming Games</h2>
-      <Games>
-        {upcoming &&
-          upcoming.map((game) => (
-            <Game
-              name={game.name}
-              releaseDate={game.released}
-              src={game.background_image}
-              id={game.id}
-              key={game.id}
-              rating={game.rating}
-            />
-          ))}
-      </Games>
-      <h2>Popular Games</h2>
-      <Games>
-        {popular &&
-          popular.map((game) => (
-            <Game
-              name={game.name}
-              releaseDate={game.released}
-              src={game.background_image}
-              id={game.id}
-              key={game.id}
-              rating={game.rating}
-            />
-          ))}
-      </Games>
-      <h2>New Games</h2>
-      <Games>
-        {newGames &&
-          newGames.map((game) => (
-            <Game
-              name={game.name}
-              releaseDate={game.released}
-              src={game.background_image}
-              id={game.id}
-              key={game.id}
-              rating={game.rating}
-            />
-          ))}
-      </Games>
+        <h2>Upcoming Games</h2>
+        <Games>
+          {upcoming &&
+            upcoming.map((game) => (
+              <Game
+                name={game.name}
+                releaseDate={game.released}
+                src={game.background_image}
+                id={game.id}
+                key={game.id}
+                rating={game.rating}
+              />
+            ))}
+        </Games>
+        <h2>Popular Games</h2>
+        <Games>
+          {popular &&
+            popular.map((game) => (
+              <Game
+                name={game.name}
+                releaseDate={game.released}
+                src={game.background_image}
+                id={game.id}
+                key={game.id}
+                rating={game.rating}
+              />
+            ))}
+        </Games>
+        <h2>New Games</h2>
+        <Games>
+          {newGames &&
+            newGames.map((game) => (
+              <Game
+                name={game.name}
+                releaseDate={game.released}
+                src={game.background_image}
+                id={game.id}
+                key={game.id}
+                rating={game.rating}
+              />
+            ))}
+        </Games>
+      </AnimateSharedLayout>
     </GameList>
   )
 }

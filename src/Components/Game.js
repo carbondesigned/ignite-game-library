@@ -2,12 +2,15 @@ import React from "react"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 
+import { smallImg } from "../util"
+
 //Redux
 import { useDispatch } from "react-redux"
 import { loadDetail } from "../actions/detailAction"
 import { Link } from "react-router-dom"
 
 const Game = ({ name, releaseDate, src, id, rating }) => {
+  const stringPathId = id.toString()
   // Load Detail
   const dispatch = useDispatch()
   const loadDetailHandler = () => {
@@ -15,9 +18,14 @@ const Game = ({ name, releaseDate, src, id, rating }) => {
     dispatch(loadDetail(id))
   }
   return (
-    <StyledGameComponent onClick={loadDetailHandler}>
+    <StyledGameComponent layoutId={stringPathId} onClick={loadDetailHandler}>
       <StyledLink to={`/game/${id}`}>
-        <StyledCoverImg className="game-img" src={src} alt="" />
+        <StyledCoverImg
+          layoutId={`image${stringPathId}`}
+          className="game-img"
+          src={src}
+          alt=""
+        />
         <StyledGameInfo className="game-info">
           <p className="released-title">Release Date</p>
           <p> {releaseDate} </p>

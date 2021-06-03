@@ -1,14 +1,23 @@
 import React from "react"
 import styled from "styled-components"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { FaTimes, FaTimesCircle } from "react-icons/fa"
+
+//Images
+import playstation from "../img/playstation.svg"
+import apple from "../img/apple.svg"
+import nintendo from "../img/nintendo.svg"
+import gamepad from "../img/gamepad.svg"
+import steam from "../img/steam.svg"
+import xbox from "../img/xbox.svg"
 
 import { useHistory } from "react-router-dom"
 
 //Redux
 import { useSelector } from "react-redux"
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
+  console.log(pathId)
   const history = useHistory()
   const { screen, game, isLoading } = useSelector((state) => state.detail)
 
@@ -24,15 +33,36 @@ const GameDetail = () => {
     }
   }
 
+  //Get PLatform icon
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation
+      case "Xbox One":
+        return xbox
+      case "PC":
+        return steam
+      case "Nintendo Switch":
+        return nintendo
+      case "iOS":
+        return apple
+      default:
+        return gamepad
+    }
+  }
+
   return (
     <>
       {!isLoading && (
         <CardShadow className="overlay" onClick={exitDetailHandler}>
-          <Detail className="detail">
+          <Detail layoutId={pathId} className="detail">
             <div className="stats">
               <div className="rating">
                 <div className="top">
-                  <h2> {game.name} </h2>
+                  <motion.h2 layoutId={`title${pathId}`}>
+                    {" "}
+                    {game.name}{" "}
+                  </motion.h2>
                   <StyledFaTimes
                     className="close"
                     onClick={exitDetailHandler}
@@ -41,17 +71,30 @@ const GameDetail = () => {
                 <p>Rating: {game.rating} </p>
               </div>
               <div className="info">
-                <h3 className="platforms-title">Platforms</h3>
+                <motion.h3
+                  layoutId={`platforms${pathId}`}
+                  className="platforms-title"
+                >
+                  Platforms
+                </motion.h3>
                 <div className="platforms">
                   {game.platforms &&
                     game.platforms.map((data) => (
-                      <h4 key={data.platform.id}> {data.platform.name} </h4>
+                      <img
+                        key={data.platform.id}
+                        alt={data.platform.name}
+                        src={getPlatform(data.platform.name)}
+                      />
                     ))}
                 </div>
               </div>
             </div>
             <div className="media">
-              <img src={game.background_image} alt="image" />
+              <motion.img
+                layoutId={`image${pathId}`}
+                src={game.background_image}
+                alt="image"
+              />
             </div>
             <div className="desc">
               <p> {game.description_raw} </p>
@@ -75,7 +118,7 @@ const StyledFaTimes = styled(FaTimesCircle)`
 
   &:hover {
     color: #9c0000;
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 `
 
@@ -143,9 +186,11 @@ const Detail = styled(motion.div)`
 
   .platforms {
     display: flex;
+    align-items: center;
 
-    h4 {
-      padding: 0 1em 0 0;
+    img {
+      max-width: 2%;
+      margin: 0 0.5em;
     }
   }
 `
